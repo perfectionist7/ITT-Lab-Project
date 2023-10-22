@@ -7,7 +7,8 @@ import {
     Table,
     TableBody,
     TableCell,
-    TableRow
+    TableRow,
+    Text
 } from 'grommet';
 
 import './App.css';
@@ -15,7 +16,7 @@ import './App.css';
 const theme = {
     global: {
         colors: {
-            brand: '#000000',
+            brand: '#36454f',
             focus: '#000000'
         },
         font: {
@@ -23,12 +24,23 @@ const theme = {
         },
     },
 };
+const AppBar = (props) => (
+    <Box
+      tag='header'
+      direction='row'
+      align='center'
+      justify='between'
+      background='#36454f'
+      pad={{ left: 'medium', right: 'small', vertical: 'small' }}
+      style={{ zIndex: '1' }}
+      {...props} />
+  );
 
 export class ViewOneHistory extends Component {
     state = { medhiststate: [], medhiststate2: []}
     componentDidMount() {
         const { email } = this.props.match.params;
-        this.allDiagnoses(email);
+        // this.allDiagnoses(email);
         this.getHistory(email);
     }
 
@@ -39,57 +51,66 @@ export class ViewOneHistory extends Component {
             .then(res => this.setState({ medhiststate: res.data }));
     }
 
-    allDiagnoses(value) {
-        let email = "'" + value + "'";
-        fetch('http://localhost:3001/allDiagnoses?patientEmail='+ email)
-        .then(res => res.json())
-        .then(res => this.setState({ medhiststate2: res.data }));
-    }
+    // allDiagnoses(value) {
+    //     let email = "'" + value + "'";
+    //     fetch('http://localhost:3001/allDiagnoses?patientEmail='+ email)
+    //     .then(res => res.json())
+    //     .then(res => this.setState({ medhiststate2: res.data }));
+    // }
 
     render() {
         const { medhiststate } = this.state;
-        const { medhiststate2 } = this.state;
+        // const { medhiststate2 } = this.state;
         const Header = () => (
             <Box
-                tag='header'
-                background='brand'
-                pad='small'
-                elevation='small'
-                justify='between'
-                direction='row'
-                align='center'
-                flex={false}
-            >
-                <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>HMS</Heading></a>
+            tag='header'
+            background='brand'
+            pad='small'
+            elevation='small'
+            justify='between'
+            direction='row'
+            align='center'
+            flex={false}
+            style={{borderBottom:"1px solid grey"}}
+          >
+        <AppBar>
+          <a style={{ color: "#ffffff", textDecoration: 'inherit' }} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority </i></Heading></a>
+        </AppBar>
             </Box>
         );
         const Body = () => (
             <div className="container">
                 <div className="panel panel-default p50 uth-panel">
+                <div style={{ margin: '30px' }}></div>  
+                <Text style={{ fontSize: '24px', color: '#36454f', marginLeft: '30px' }}> <b>  Medical History:  </b> </Text>
                     {medhiststate.map(patient =>
                         <Table>
+                                                                                    <div style={{ margin: '30px' }}></div>  
+                                                        <div style={{ marginLeft: '20px' }}>
                             <TableBody>
                                 <TableRow>
                                     <TableCell scope="row">
-                                        <strong>Name</strong>
+                                    <label style={{ fontSize: '18px', color: '#36454f' }}> <b> <i> Patient's Name: </i></b> </label>
                                     </TableCell>
-                                    <TableCell>{patient.name}</TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell><strong>Email</strong></TableCell>
-                                    <TableCell>{patient.email}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell scope="row">
-                                        <strong>Gender</strong>
-                                    </TableCell>
-                                    <TableCell>
-                                        {patient.gender}
+                                    <TableCell> <label style={{ fontSize: '18px', color: '#36454f' }}>   {patient.name} </label>
                                     </TableCell>
                                     <TableCell />
-                                    <TableCell>
-                                        <strong>Address</strong>
+                                    <TableCell> 
+                                    <label style={{ fontSize: '18px', color: '#36454f' }}> <b> <i> Gender: </i></b> </label>
                                     </TableCell>
-                                    <TableCell>{patient.address}</TableCell>
+                                    <TableCell> <label style={{ fontSize: '18px', color: '#36454f'}}>   {patient.gender} </label></TableCell> 
+                                    
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell scope="row">
+                                    <label style={{ fontSize: '18px', color: '#36454f' }}> <b> <i> Email ID: </i></b> </label>
+                                    </TableCell>
+                                    <TableCell> <label style={{ fontSize: '18px', color: '#36454f'}}>   {patient.email} </label></TableCell> 
+                                    <TableCell />
+                                    <TableCell>
+                                    <label style={{ fontSize: '18px', color: '#36454f' }}> <b> <i> Address: </i></b> </label>
+                                    </TableCell>
+                                    <TableCell> <label style={{ fontSize: '18px', color: '#36454f'}}>   {patient.address} </label></TableCell> 
                                 </TableRow>
                                 <TableRow>
                                     <TableCell scope="row">
@@ -97,109 +118,105 @@ export class ViewOneHistory extends Component {
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>
-                                        <strong>Conditions</strong>
+                                    <label style={{ fontSize: '18px', color: '#36454f' }}> <b> <i>  Conditions: </i></b> </label>
                                     </TableCell>
-                                    <TableCell>{patient.conditions}
-                                        </TableCell>
+                                    <TableCell> <label style={{ fontSize: '18px', color: '#36454f'}}>   {patient.conditions} </label></TableCell> 
+                                        <TableCell />
+                                        <TableCell>
+                                        <label style={{ fontSize: '18px', color: '#36454f' }}> <b> <i>  Surgeries: </i></b> </label>
+                                    </TableCell>
+                                    <TableCell> <label style={{ fontSize: '18px', color: '#36454f'}}>   {patient.surgeries} </label></TableCell> 
                                 </TableRow>
+
                                 <TableRow>
                                     <TableCell scope="row">
                                     </TableCell>
                                 </TableRow>
                                 <TableRow>
                                     <TableCell>
-                                        <strong>Surgeries</strong>
+                                    <label style={{ fontSize: '18px', color: '#36454f' }}> <b> <i>  Medications: </i></b> </label>
                                     </TableCell>
-                                    <TableCell>{patient.surgeries}
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell scope="row">
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                        <strong>Medications</strong>
-                                    </TableCell>
-                                    <TableCell>{patient.medication}
-                                    </TableCell>
+                                    <TableCell> <label style={{ fontSize: '18px', color: '#36454f'}}>   {patient.medication} </label></TableCell> 
+                                    <TableCell />
                                 </TableRow>
                             </TableBody>
+                            </div>
+                            <div style={{ margin: '20px' }}></div>  
                         </Table>
                     )}
                 </div>
                 <hr />
             </div>
         );
-        const Body2 = () => (
-            <div className="container">
-                <div className="panel panel-default p50 uth-panel">
-                    {medhiststate2.map(patient =>
-                        <div>
-                        <Table>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell scope="row">
-                                        <strong>Date</strong>
-                                    </TableCell>
-                                    <TableCell>{patient.date.split('T')[0]}</TableCell>
-                                    <TableCell></TableCell>
-                                    <TableCell><strong>Doctor</strong></TableCell>
-                                    <TableCell>{patient.doctor}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell scope="row">
-                                        <strong>Concerns</strong>
-                                    </TableCell>
-                                    <TableCell>
-                                        {patient.concerns}
-                                    </TableCell>
-                                    <TableCell />
-                                    <TableCell>
-                                        <strong>Symptoms</strong>
-                                    </TableCell>
-                                    <TableCell>{patient.symptoms}</TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell scope="row">
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                        <strong>Diagnosis</strong>
-                                    </TableCell>
-                                    <TableCell>{patient.diagnosis}
-                                        </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell scope="row">
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell>
-                                        <strong>Prescription</strong>
-                                    </TableCell>
-                                    <TableCell>{patient.prescription}
-                                    </TableCell>
-                                </TableRow>
-                                <TableRow>
-                                    <TableCell scope="row">
-                                    </TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                        <hr />
-                        </div>
-                    )}
-                </div>
-            </div>
-        );
+        // const Body2 = () => (
+        //     <div className="container">
+        //         <div className="panel panel-default p50 uth-panel">
+        //             {medhiststate2.map(patient =>
+        //                 <div>
+        //                 <Table>
+        //                     <TableBody>
+        //                         <TableRow>
+        //                             <TableCell scope="row">
+        //                                 <strong>Date</strong>
+        //                             </TableCell>
+        //                             <TableCell>{patient.date.split('T')[0]}</TableCell>
+        //                             <TableCell></TableCell>
+        //                             <TableCell><strong>Doctor</strong></TableCell>
+        //                             <TableCell>{patient.doctor}</TableCell>
+        //                         </TableRow>
+        //                         <TableRow>
+        //                             <TableCell scope="row">
+        //                                 <strong>Concerns</strong>
+        //                             </TableCell>
+        //                             <TableCell>
+        //                                 {patient.concerns}
+        //                             </TableCell>
+        //                             <TableCell />
+        //                             <TableCell>
+        //                                 <strong>Symptoms</strong>
+        //                             </TableCell>
+        //                             <TableCell>{patient.symptoms}</TableCell>
+        //                         </TableRow>
+        //                         <TableRow>
+        //                             <TableCell scope="row">
+        //                             </TableCell>
+        //                         </TableRow>
+        //                         <TableRow>
+        //                             <TableCell>
+        //                                 <strong>Diagnosis</strong>
+        //                             </TableCell>
+        //                             <TableCell>{patient.diagnosis}
+        //                                 </TableCell>
+        //                         </TableRow>
+        //                         <TableRow>
+        //                             <TableCell scope="row">
+        //                             </TableCell>
+        //                         </TableRow>
+        //                         <TableRow>
+        //                             <TableCell>
+        //                                 <strong>Prescription</strong>
+        //                             </TableCell>
+        //                             <TableCell>{patient.prescription}
+        //                             </TableCell>
+        //                         </TableRow>
+        //                         <TableRow>
+        //                             <TableCell scope="row">
+        //                             </TableCell>
+        //                         </TableRow>
+        //                     </TableBody>
+        //                 </Table>
+        //                 <hr />
+        //                 </div>
+        //             )}
+        //         </div>
+        //     </div>
+        // );
         return (
             <Grommet full={true} theme={theme}>
                 <Box fill={true}>
                     <Header />
                     <Body />
-                    <Body2 />
+                    {/* <Body2 /> */}
                 </Box>
             </Grommet>
         );

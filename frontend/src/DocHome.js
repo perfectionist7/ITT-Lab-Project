@@ -13,7 +13,7 @@ import './App.css';
 const theme = {
     global: {
         colors: {
-            brand: '#000000',
+            brand: '#36454f',
             focus: '#000000'
         },
         font: {
@@ -26,7 +26,7 @@ const SidebarButton = ({ label, ...rest }) => (
     <Button plain {...rest}>
         {({ hover }) => (
             <Box
-                background={hover ? "#DADADA" : undefined}
+                background={hover ? "#ffffff" : undefined}
                 pad={{ horizontal: "large", vertical: "medium" }}
             >
                 <Text size="large">{label}</Text>
@@ -41,25 +41,25 @@ const SidebarButtons = () => {
         <Grommet full theme={theme}>
             <Box fill direction="row">
                 <Box background="brand">
-                    {["Appointments", "View Patients", "Settings", "Sign Out"].map(label => (
+                    {["Appointments Scheduled", "View Patients", "Settings", "Sign Out"].map(label => (
                         <SidebarButton
                             key={label}
                             label={label}
                             active={label === active}
                             onClick={() => {
-                                if (label === "Appointments") {
-                                    window.location = "/ApptList"
-                                }
-                                else if (label === "Sign Out") {
+                                // if (label === "Appointments Scheduled") {
+                                //     window.location = "/ApptList"
+                                // }
+                                if (label === "Sign Out") {
                                     fetch("http://localhost:3001/endSession");
                                     window.location = "/"
                                 }
-                                else if (label === "Settings") {
-                                    window.location = "/DocSettings"
-                                }
-                                else if (label === "View Patients") {
-                                    window.location = "/MedHistView"
-                                }
+                                // else if (label === "Settings") {
+                                //     window.location = "/DocSettings"
+                                // }
+                                // else if (label === "View Patients") {
+                                //     window.location = "/MedHistView"
+                                // }
                                 setActive(label);
                             }}
                         />
@@ -70,6 +70,17 @@ const SidebarButtons = () => {
         </Grommet>
     );
 };
+const AppBar = (props) => (
+    <Box
+      tag='header'
+      direction='row'
+      align='center'
+      justify='between'
+      background='#36454f'
+      pad={{ left: 'medium', right: 'small', vertical: 'small' }}
+      style={{ zIndex: '1' }}
+      {...props} />
+  );
 
 export class DocHome extends Component {
     componentDidMount() {
@@ -88,7 +99,9 @@ export class DocHome extends Component {
                 flex={false}
                 style={{borderBottom:"1px solid grey"}}
             >
-                <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>HMS</Heading></a>
+      <AppBar>
+          <a style={{ color: "#ffffff", textDecoration: 'inherit' }} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority </i></Heading></a>
+        </AppBar>
 
             </Box>
         );
@@ -120,11 +133,11 @@ export class DocHome extends Component {
                             gridArea="main"
                             justify="top"
                             align="center">
-                            <Box align="center" pad="large">
-                                <Heading
-                                    color="#000000">Welcome Doctor
-                                </Heading>
-                            </Box>
+                                          <Box align="center" pad="large">
+              <Text color="#36454f" style={{ fontSize: '46px', margin: '20px 0', marginLeft: '120px' }}><b> Doctor's Dashboard </b></Text>
+              </Box>
+              {/* <Text color="#36454f" style={{ fontSize: '36px', margin: '20px 0', marginLeft: '120px' }}><b> Welcome to the Patient's Dashboard </b></Text> */}
+              <Text color="#36454f" style={{ fontSize: '24px', margin: '20px 0', marginLeft: '120px' }}><b> Select one of the options on the sidebar to continue. </b></Text>
                         </Box>
                     </Grid>
                 </Box>

@@ -13,7 +13,7 @@ import './App.css';
 const theme = {
   global: {
     colors: {
-      brand: '#000000',
+      brand: '#36454f',
       focus: '#000000'
     },
     font: {
@@ -26,7 +26,7 @@ const SidebarButton = ({ label, ...rest }) => (
   <Button plain {...rest}>
     {({ hover }) => (
       <Box
-        background={hover ? "#DADADA" : undefined}
+        background={hover ? "#ffffff" : undefined}
         pad={{ horizontal: "large", vertical: "medium" }}
       >
         <Text size="large">{label}</Text>
@@ -41,23 +41,24 @@ const SidebarButtons = () => {
     <Grommet full theme={theme}>
       <Box fill direction="row">
         <Box background="brand">
-          {["View Medical History", "View Appointments", "Schedule Appointment", "Settings", "Sign Out"].map(label => (
+        <div style={{ margin: '10px' }}></div>  
+          {["Past Medical History", "Appointments Scheduled", "Schedule an Appointment", "Settings", "Sign Out"].map(label => (
             <SidebarButton
               key={label}
               label={label}
               active={label === active}
               onClick={() => {
-                if (label === "Schedule Appointment") {
-                  window.location = "/scheduleAppt"
-                }
-                else if (label === "Sign Out") {
+                // if (label === "Schedule an Appointment") {
+                //   window.location = "/scheduleAppt"
+                // }
+               if (label === "Sign Out") {
                   fetch("http://localhost:3001/endSession");
                   window.location = "/"
                 }
-                else if (label === "View Appointments") {
-                  window.location = "/PatientsViewAppt"
-                }
-                else if (label === "View Medical History") {
+                // else if (label === "Appointments Scheduled") {
+                //   window.location = "/PatientsViewAppt"
+                // }
+                else if (label === "Past Medical History") {
                   let email_in_use = "";
                   fetch("http://localhost:3001/userInSession")
                     .then(res => res.json())
@@ -69,9 +70,9 @@ const SidebarButtons = () => {
                       window.location = "/ViewOneHistory/" + email_in_use;
                     });
                 }
-                else if (label === "Settings") {
-                  window.location = "/Settings"
-                }
+                // else if (label === "Settings") {
+                //   window.location = "/Settings"
+                // }
                 setActive(label);
               }}
             />
@@ -81,6 +82,18 @@ const SidebarButtons = () => {
     </Grommet>
   );
 };
+
+const AppBar = (props) => (
+  <Box
+    tag='header'
+    direction='row'
+    align='center'
+    justify='between'
+    background='#36454f'
+    pad={{ left: 'medium', right: 'small', vertical: 'small' }}
+    style={{ zIndex: '1' }}
+    {...props} />
+);
 export class Home extends Component {
   renderName = ({ name, email }) => <div key={email}>{name} {name}</div>
 
@@ -97,7 +110,9 @@ export class Home extends Component {
         flex={false}
         style={{borderBottom:"1px solid grey"}}
       >
-        <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>HMS</Heading></a>
+        <AppBar>
+          <a style={{ color: "#ffffff", textDecoration: 'inherit' }} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority </i></Heading></a>
+        </AppBar>
       </Box>
     );
 
@@ -129,10 +144,10 @@ export class Home extends Component {
               justify="top"
               align="center">
               <Box align="center" pad="large">
-                <Heading 
-                  color="#000000">Welcome Patient
-                </Heading>
+              <Text color="#36454f" style={{ fontSize: '46px', margin: '20px 0', marginLeft: '120px' }}><b> Patient's Dashboard </b></Text>
               </Box>
+              {/* <Text color="#36454f" style={{ fontSize: '36px', margin: '20px 0', marginLeft: '120px' }}><b> Welcome to the Patient's Dashboard </b></Text> */}
+              <Text color="#36454f" style={{ fontSize: '24px', margin: '20px 0', marginLeft: '120px' }}><b> Select one of the options on the sidebar to continue. </b></Text>
             </Box>
           </Grid>
         </Box>

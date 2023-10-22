@@ -15,12 +15,12 @@ import './App.css';
 const theme = {
   global: {
     colors: {
-      brand: '#000000',
-      focus: "#000000",
+      brand: '#36454f',
+      focus: "#ffffff",
       active: "#000000",
     },
     font: {
-      family: 'Lato',
+      family: 'Roboto',
     },
   },
 };
@@ -31,7 +31,7 @@ const AppBar = (props) => (
     direction='row'
     align='center'
     justify='between'
-    background='brand'
+    background='#36454f'
     pad={{ left: 'medium', right: 'small', vertical: 'small' }}
     style={{ zIndex: '1' }}
     {...props} />
@@ -55,14 +55,15 @@ class LogIn extends Component {
     return (
       <Grommet theme={theme} full>
         <AppBar>
-        <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>HMS</Heading></a>
+        <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority</i></Heading></a>
         </AppBar>
 
         <Box
           fill
           align="center"
           justify="top"
-          pad="medium">
+          pad="medium"
+          style={{ background: 'white', color: '#6e7f80' }}>
           <Box
             width="medium"
             pad="medium">
@@ -98,36 +99,44 @@ class LogIn extends Component {
                 }
               }
               }>
-              <FormField
-                color="#00739D"
-                label="Email"
-                name="email"
-                type="email"
-                placeholder = "Please enter your email."
-                required />
-              <FormField
-                color="#00739D"
-                type='password'
-                label="Password"
-                name="password"
-                placeholder = "Please enter your password."
-                required />
+                <Box align="center" >
               <FormField
                 component={CheckBox}
                 checked={isDoctor}
-                margin="large"
-                label="I'm a doctor"
+                margin='20px'
+                label="Are you a doctor?"
                 name="isDoc"
                 onChange={(event) => {
                   this.setState({ isDoctor: event.target.checked })
                 }}
+                className="custom-checkbox"
               />
+              <div style={{ margin: '10px' }}></div>
+              </Box>
+              <FormField
+                className="password-input"
+                color="#000000"
+                label="Username"
+                name="email"
+                type="email"
+                placeholder = "Enter your username"
+                required />
+                <div style={{ margin: '20px' }}></div>
+              <FormField
+                className="password-input"
+                color="#000000"
+                type='password'
+                label="Password"
+                name="password"
+                placeholder = "Enter your password"
+                required />
+              <div style={{ margin: '20px' }}></div>
               <Box direction="column" align="center" >
-                <Button style={{ textAlign: 'center' , margin:'1rem'}}
-                 type="submit" label="Log In" fill="horizontal" primary />
-                <Button label="Create Account"
-                  style={{ textAlign: 'center' , margin:'0.5rem'}}
-                  fill="horizontal"
+                <Button style={{ textAlign: 'center' , margin:'1rem', borderRadius: '10px' }}
+                 type="submit" label="Log In" fill="horizontal" />
+                <Button label="Register Yourself"
+                  style={{ textAlign: 'center' , margin:'0.5rem', borderRadius: '10px'}}
+                  fill="horizontal" primary
                   href="/createAcc" />
               </Box>
             </Form>

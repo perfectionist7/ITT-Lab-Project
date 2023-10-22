@@ -14,7 +14,7 @@ import './App.css';
 const theme = {
     global: {
       colors: {
-        brand: '#000000',
+        brand: '#36454f',
         focus: '#000000'
       },
       font: {
@@ -22,6 +22,17 @@ const theme = {
       },
     },
   };
+  const AppBar = (props) => (
+    <Box
+      tag='header'
+      direction='row'
+      align='center'
+      justify='between'
+      background='#36454f'
+      pad={{ left: 'medium', right: 'small', vertical: 'small' }}
+      style={{ zIndex: '1' }}
+      {...props} />
+  );
 export class ViewMedHist extends Component {
     
     state = { medhiststate: [] }
@@ -55,7 +66,9 @@ export class ViewMedHist extends Component {
                 align='center'
                 flex={false}
             >
-               <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>HMS</Heading></a>
+        <AppBar>
+          <a style={{ color: "#ffffff", textDecoration: 'inherit' }} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority </i></Heading></a>
+        </AppBar>
 
             </Box>
         );

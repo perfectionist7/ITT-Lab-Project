@@ -8,6 +8,7 @@ import {
     FormField,
     Form,
     Text,
+    RadioButtonGroup,
 
 } from 'grommet';
 
@@ -16,8 +17,8 @@ import './App.css';
 const theme = {
     global: {
         colors: {
-            brand: '#000000',
-            focus: "#000000",
+            brand: '#36454f',
+            focus: "#ffffff",
             active: "#000000",
         },
         font: {
@@ -45,11 +46,13 @@ export class MakeDoc extends Component {
         return (
             <Grommet theme={theme} full>
                 <AppBar>
-                <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>HMS</Heading></a>
+                <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority </i></Heading></a>
                 </AppBar>
-                <Box fill align="center" justify="top">
-                    <Box width="medium">
-                    <Text color = "#AAAAAA">Doctor's registration form:</Text>
+                <Box justify="top" style={{ background: 'white', color: '#6e7f80' }}>
+                <Box width="high">
+                <div style={{ margin: '20px' }}></div>
+                    <Text color="#36454f" style={{ fontSize: '36px', margin: '20px 0', marginLeft: '20px' }}><b> Register Yourself! - Doctor </b></Text>
+                    <div style={{ margin: '20px' }}></div>
                         <Form
                             onReset={event => console.log(event)}
                             method="post"
@@ -70,53 +73,80 @@ export class MakeDoc extends Component {
                                         }
                                     });
                             }} >
+                                        <div style={{ marginLeft: '20px' }}>
+  <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <FormField
                                 label="First Name"
                                 name="firstName"
                                 required
                                 placeholder="Please enter your first name."
                                 validate={{ regexp: /^[a-z]/i }} />
+                                                  <div style={{ marginLeft: '40px' }}></div>
                             <FormField
                                 label="Last Name"
                                 name="lastName"
                                 required
                                 placeholder="Please enter your last name."
                                 validate={{ regexp: /^[a-z]/i }} />
+                                  </div>
+                                  </div>
+                                  <div style={{ margin: '40px' }}></div>
+                                  <div style={{ marginLeft: '20px' }}>
+              <div style={{ display: 'flex', flexDirection: 'row' }}>
                             <FormField
                                 label="Email"
                                 name="email"
                                 type="email"
                                 placeholder="Please enter your email."
                                 required />
-                            <FormField
-                                label="Schedule No"
-                                name="schedule"
-                                placeholder="Please enter schedule number"
-                                required />
-                            <FormField
-                                label="Gender"
-                                name="gender"
-                                placeholder="Female or Male"
-                                required />
-                            <FormField
+                                                <div style={{ marginLeft: '40px' }}></div>
+                                                            <FormField
                                 label="Password"
                                 name="password"
                                 required
                                 placeholder="Please enter your password."
                                 validate={{ regexp: /^(?=.{8,})(?=.*[0-9]{2})/, message: "@ least 8 characters containing 2 digits" }} />
-                            <Box direction="row" align="center" >
+                                              </div>
+                                              </div>
+                                              <div style={{ marginLeft: '20px', marginRight: '1300px' }}>
+                                              <div style={{ margin: '30px' }}></div>
+                            <FormField
+                                label="Schedule No"
+                                name="schedule"
+                                placeholder="Please enter schedule number"
+                                required />
+                                </div>
+                                <div style={{ margin: '40px' }}>  </div>
+                                <div style={{ marginLeft: '30px' }}>
+                <label style={{ fontSize: '18px' }}>Choose your gender</label>
+                <div style={{ margin: '20px' }}>                </div>
+                                <RadioButtonGroup
+                  name="gender"
+                  options={['Male', 'Female', 'Others']}
+                  required
+                />
+                </div>
+                <div style={{ margin: '70px' }}></div>
+
+                            <Box direction="row">
+                            <div style={{ marginLeft: '500px' }}></div>
                                 <Button
-                                    style={{ textAlign: 'center' }}
+                                    style={{ textAlign: 'center', width: '200px',borderRadius: '10px' }}
                                     label="Cancel"
                                     fill="horizontal"
                                     href="/" />
+                                                                    <div style={{ marginLeft: '100px' }}></div>
+                                    
                                 <Button
+                                
+                style={{ width: '200px',borderRadius: '10px' }} 
+
                                     label="Sign Up"
                                     fill="horizontal"
                                     type="submit"
                                     primary />
                             </Box>
-
+                            <div style={{ marginBottom: '100px' }}></div>
                         </Form>
                     </Box>
                 </Box>
