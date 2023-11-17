@@ -54,7 +54,7 @@ const DropContent = ({ date: initialDate, time: initialTime, onClose }) => {
   const close = () => {
     theDate = date;
     theTime = time;
-
+    if(theTime) {
     //time is string, store it as [hour, min]
     let parsedTime = theTime.split(":");
 
@@ -69,80 +69,84 @@ const DropContent = ({ date: initialDate, time: initialTime, onClose }) => {
     console.log(theDate)
     console.log(theTime);
     onClose(date || initialDate, time || initialTime);
+    }
+    else {
+
+    }
   };
 
-  return (
-    <Box align="center">
-      <Calendar
-        animate={false}
-        date={date || initialDate}
-        onSelect={setDate}
-        showAdjacentDays={false}
-        required
-      />
-      <Box flex={false} pad="medium" gap="small">
-        <Keyboard
+    return (
+      <Box align="center">
+        <Calendar
+          animate={false}
+          date={date || initialDate}
+          onSelect={setDate}
+          showAdjacentDays={false}
           required
-          onEnter={event => {
-            event.preventDefault(); // so drop doesn't re-open
-            close();
-          }}
-        >
-          <MaskedInput
-            mask={[
-              {
-                length: [1, 2],
-                options: [
-                  "0",
-                  "1",
-                  "2",
-                  "3",
-                  "4",
-                  "5",
-                  "6",
-                  "7",
-                  "8",
-                  "9",
-                  "10",
-                  "11",
-                  "12",
-                  "13",
-                  "14",
-                  "15",
-                  "16",
-                  "17",
-                  "18",
-                  "19",
-                  "20",
-                  "21",
-                  "22",
-                  "23",
-
-                ],
-                regexp: /^1[1-2]$|^[0-9]$/,
-                placeholder: "hh"
-              },
-              { fixed: ":" },
-              {
-                length: 2,
-                options: ["00"],
-                regexp: /^[0-5][0-9]$|^[0-9]$/,
-                placeholder: "mm"
-              }
-            ]}
-            value={time || initialTime}
-            name="maskedInput"
-            onChange={event => setTime(event.target.value)}
+        />
+        <Box flex={false} pad="medium" gap="small">
+          <Keyboard
             required
-          />
-        </Keyboard>
-        <Box flex={false}>
-          <Button label="Done" onClick={close} color="#00739D" />
+            onEnter={event => {
+              event.preventDefault(); // so drop doesn't re-open
+              close();
+            }}
+          >
+            <MaskedInput
+              mask={[
+                {
+                  length: [1, 2],
+                  options: [
+                    "0",
+                    "1",
+                    "2",
+                    "3",
+                    "4",
+                    "5",
+                    "6",
+                    "7",
+                    "8",
+                    "9",
+                    "10",
+                    "11",
+                    "12",
+                    "13",
+                    "14",
+                    "15",
+                    "16",
+                    "17",
+                    "18",
+                    "19",
+                    "20",
+                    "21",
+                    "22",
+                    "23",
+
+                  ],
+                  regexp: /^1[1-2]$|^[0-9]$/,
+                  placeholder: "hh"
+                },
+                { fixed: ":" },
+                {
+                  length: 2,
+                  options: ["00"],
+                  regexp: /^[0-5][0-9]$|^[0-9]$/,
+                  placeholder: "mm"
+                }
+              ]}
+              value={time || initialTime}
+              name="maskedInput"
+              onChange={event => setTime(event.target.value)}
+              required
+            />
+          </Keyboard>
+          <Box flex={false}>
+            <Button label="Done" onClick={close} color="#00739D" />
+          </Box>
         </Box>
       </Box>
-    </Box>
-  );
-};
+    );
+  };
 
 const DateTimeDropButton = () => {
   const [date, setDate] = React.useState();
@@ -283,7 +287,7 @@ export class SchedulingAppt extends Component {
                   fetch("http://localhost:3001/checkIfApptExists?email=" + email_in_use + "&startTime=" + theTime + "&date=" + theDate + "&docEmail=" + theDoc)
                     .then(res => res.json())
                     .then(res => {
-                      if ((res.data[0])) {
+                      if ((res.data[0]==0)) {
                         window.alert("Appointment Clash! Try another doctor or date/time");
                       } else {
                         fetch("http://localhost:3001/genApptUID")

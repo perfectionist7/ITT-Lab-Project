@@ -282,7 +282,7 @@ app.get('/endSession', (req, res) => {
 
 // Checks If a similar appointment exists to avoid a clash
 app.get('/checkIfApptExists', (req, res) => {
-  let cond1, cond2, cond3 = ""
+  let cond1, cond2, cond3 = "";
   let params = req.query;
   let email = params.email;
   let doc_email = params.docEmail;
