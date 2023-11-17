@@ -27,6 +27,7 @@ CREATE TABLE DoctorInfo(
 
 CREATE TABLE AppointmentSchedule(
   id INT PRIMARY KEY,
+  FOREIGN KEY (availability_id) REFERENCES DoctorAvailability (id);
   date DATE NOT NULL,
   starttime TIME NOT NULL,
   endtime TIME NOT NULL,

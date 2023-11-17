@@ -48,16 +48,16 @@ const SidebarButtons = () => {
               label={label}
               active={label === active}
               onClick={() => {
-                // if (label === "Schedule an Appointment") {
-                //   window.location = "/scheduleAppt"
-                // }
+                if (label === "Schedule an Appointment") {
+                  window.location = "/scheduleAppt"
+                }
                if (label === "Sign Out") {
                   fetch("http://localhost:3001/endSession");
                   window.location = "/"
                 }
-                // else if (label === "Appointments Scheduled") {
-                //   window.location = "/PatientsViewAppt"
-                // }
+                else if (label === "Appointments Scheduled") {
+                  window.location = "/PatientsViewAppt"
+                }
                 else if (label === "Past Medical History") {
                   let email_in_use = "";
                   fetch("http://localhost:3001/userInSession")
@@ -70,9 +70,9 @@ const SidebarButtons = () => {
                       window.location = "/ViewOneHistory/" + email_in_use;
                     });
                 }
-                // else if (label === "Settings") {
-                //   window.location = "/Settings"
-                // }
+                else if (label === "Settings") {
+                  window.location = "/Settings"
+                }
                 setActive(label);
               }}
             />
