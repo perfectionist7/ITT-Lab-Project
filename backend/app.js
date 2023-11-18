@@ -424,17 +424,17 @@ app.get('/MedHistView', (req, res) => {
 app.get('/patientViewAppt', (req, res) => {
   let tmp = req.query;
   let email = tmp.email;
-  let statement = `SELECT PatientsAttendAppointments.appt as ID,
-                  PatientsAttendAppointments.patient as user, 
-                  PatientsAttendAppointments.concerns as theConcerns, 
-                  PatientsAttendAppointments.symptoms as theSymptoms, 
-                  Appointment.date as theDate,
-                  Appointment.starttime as theStart,
-                  Appointment.endtime as theEnd,
-                  Appointment.status as status
-                  FROM PatientsAttendAppointments, Appointment
-                  WHERE PatientsAttendAppointments.patient = "${email}" AND
-                  PatientsAttendAppointments.appt = Appointment.id`;
+  let statement = `SELECT PatientAppointments.id as ID,
+                  PatientAppointments.email as user, 
+                  PatientAppointments.concerns as theConcerns, 
+                  PatientAppointments.symptoms as theSymptoms, 
+                  AppointmentSchedule.date as theDate,
+                  AppointmentSchedule.starttime as theStart,
+                  AppointmentSchedule.endtime as theEnd,
+                  AppointmentSchedule.status as status
+                  FROM PatientAppointments, AppointmentSchedule
+                  WHERE PatientAppointments.email = "${email}" AND
+                  PatientAppointments.id = AppointmentSchedule.id`;
   console.log(statement);
   con.query(statement, function (error, results, fields) {
     if (error) throw error;
@@ -450,7 +450,7 @@ app.get('/patientViewAppt', (req, res) => {
 app.get('/checkIfHistory', (req, res) => {
     let params = req.query;
     let email = params.email;
-    let statement = "SELECT patient FROM PatientsFillHistory WHERE patient = " + email;
+    let statement = "SELECT email FROM PatientRecords WHERE email = " + email;
     console.log(statement)
     con.query(statement, function (error, results, fields) {
         if (error) throw error;
@@ -538,12 +538,12 @@ app.get('/diagnose', (req, res) => {
   let id = params.id;
   let diagnosis = params.diagnosis;
   let prescription = params.prescription;
-  let statement = `UPDATE Diagnose SET diagnosis="${diagnosis}", prescription="${prescription}" WHERE appt=${id};`;
+  let statement = `UPDATE Diagnosis SET diagnosis="${diagnosis}", prescription="${prescription}" WHERE id=${id};`;
   console.log(statement)
   con.query(statement, function (error, results, fields) {
     if (error) throw error;
     else {
-      let statement = `UPDATE Appointment SET status="Done" WHERE id=${id};`;
+      let statement = `UPDATE AppointmentSchedule SET status="Done" WHERE id=${id};`;
       console.log(statement)
       con.query(statement, function (error, results, fields){
         if (error) throw error;
@@ -555,7 +555,7 @@ app.get('/diagnose', (req, res) => {
 //To show diagnoses
 app.get('/showDiagnoses', (req, res) => {
   let id = req.query.id;
-  let statement = `SELECT * FROM Diagnose WHERE appt=${id}`;
+  let statement = `SELECT * FROM Diagnosis WHERE id=${id}`;
   console.log(statement);
   con.query(statement, function (error, results, fields) {
     if (error) throw error;
@@ -572,9 +572,9 @@ app.get('/doctorViewAppt', (req, res) => {
   let a = req.query;
   let email = a.email;
   let statement = `SELECT a.id,a.date, a.starttime, a.status, p.name, psa.concerns, psa.symptoms
-  FROM Appointment a, PatientsAttendAppointments psa, Patient p
-  WHERE a.id = psa.appt AND psa.patient = p.email
-  AND a.id IN (SELECT appt FROM Diagnose WHERE doctor="${email_in_use}")`;
+  FROM AppointmentSchedule a, PatientAppointments psa, PatientInfo p
+  WHERE a.id = psa.id AND psa.email = p.email
+  AND a.id IN (SELECT id FROM Diagnosis WHERE email="${email_in_use}")`;
   console.log(statement);
   con.query(statement, function (error, results, fields) {
     if (error) throw error;
@@ -589,7 +589,7 @@ app.get('/doctorViewAppt', (req, res) => {
 //To show diagnoses to patient
 app.get('/showDiagnoses', (req, res) => {
   let id = req.query.id;
-  let statement = `SELECT * FROM Diagnose WHERE appt=${id}`;
+  let statement = `SELECT * FROM Diagnosis WHERE id=${id}`;
   console.log(statement);
   con.query(statement, function (error, results, fields) {
     if (error) throw error;
@@ -605,9 +605,9 @@ app.get('/showDiagnoses', (req, res) => {
 app.get('/allDiagnoses', (req, res) => {
   let params = req.query;
   let email = params.patientEmail;
-  let statement =`SELECT date,doctor,concerns,symptoms,diagnosis,prescription FROM 
-  Appointment A INNER JOIN (SELECT * from PatientsAttendAppointments NATURAL JOIN Diagnose 
-  WHERE patient=${email}) AS B ON A.id = B.appt;`
+  let statement =`SELECT date,email,concerns,symptoms,diagnosis,prescription FROM 
+  AppointmentSchedule A INNER JOIN (SELECT * fromPatientAppointments NATURAL JOIN Diagnosis 
+  WHERE email=${email}) AS B ON A.id = B.id;`
   console.log(statement);
   con.query(statement, function (error, results, fields) {
     if (error) throw error;
@@ -623,14 +623,14 @@ app.get('/allDiagnoses', (req, res) => {
 app.get('/deleteAppt', (req, res) => {
   let a = req.query;
   let uid = a.uid;
-  let statement = `SELECT status FROM Appointment WHERE id=${uid};`;
+  let statement = `SELECT status FROM AppointmentSchedule WHERE id=${uid};`;
   console.log(statement);
   con.query(statement, function (error, results, fields) {
     if (error) throw error;
     else {
       results = results[0].status
       if(results == "NotDone"){
-        statement = `DELETE FROM Appointment WHERE id=${uid};`;
+        statement = `DELETE FROM AppointmentSchedule WHERE id=${uid};`;
         console.log(statement);
         con.query(statement, function (error, results, fields) {
           if (error) throw error;
@@ -638,7 +638,7 @@ app.get('/deleteAppt', (req, res) => {
       }
       else{
         if(who=="pat"){
-          statement = `DELETE FROM PatientsAttendAppointments p WHERE p.appt = ${uid}`;
+          statement = `DELETE FROM PatientAppointments p WHERE p.id = ${uid}`;
           console.log(statement);
           con.query(statement, function (error, results, fields) {
             if (error) throw error;

@@ -63,7 +63,7 @@ export class ShowDiagnoses extends Component {
                                     <TableCell scope="row">
                                         <strong>Appointment Id</strong>
                                     </TableCell>
-                                    <TableCell>{diagnosis.appt}</TableCell>
+                                    <TableCell>{diagnosis.id}</TableCell>
                                     <TableCell></TableCell>
                                 </TableRow>
                                 <br />
@@ -71,7 +71,7 @@ export class ShowDiagnoses extends Component {
                                     <TableCell scope="row">
                                         <strong>Doctor</strong>
                                     </TableCell>
-                                    <TableCell>{diagnosis.doctor}</TableCell>
+                                    <TableCell>{diagnosis.email}</TableCell>
                                     <TableCell></TableCell>
                                 </TableRow>
                                 <br />
