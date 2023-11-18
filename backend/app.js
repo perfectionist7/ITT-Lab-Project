@@ -400,13 +400,15 @@ app.get('/MedHistView', (req, res) => {
   let patientName = "'%" + params.name + "%'";
   let secondParamTest = "" + params.variable;
   let statement = `SELECT name AS 'Name',
-                    PatientsFillHistory.history AS 'ID',
-                    email FROM Patient,PatientsFillHistory
-                    WHERE Patient.email = PatientsFillHistory.patient
-                    AND Patient.email IN (SELECT patient from PatientsAttendAppointments 
-                    NATURAL JOIN Diagnose WHERE doctor="${email_in_use}")`;
+                    PatientRecords.id AS 'ID',
+                    PatientInfo.email FROM PatientInfo,PatientRecords
+                    WHERE PatientInfo.email = PatientRecords.email
+                    AND PatientInfo.email IN (SELECT p.email
+                      FROM PatientAppointments p
+                      JOIN Diagnosis d ON p.id = d.id
+                      WHERE d.email = "${email_in_use}")`;
   if (patientName != "''")
-    statement += " AND Patient.name LIKE " + patientName
+    statement += " AND PatientInfo.name LIKE " + patientName
   console.log(statement)
   con.query(statement, function (error, results, fields) {
     if (error) throw error;

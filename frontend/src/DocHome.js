@@ -47,19 +47,19 @@ const SidebarButtons = () => {
                             label={label}
                             active={label === active}
                             onClick={() => {
-                                // if (label === "Appointments Scheduled") {
-                                //     window.location = "/ApptList"
-                                // }
+                                if (label === "Appointments Scheduled") {
+                                    window.location = "/ApptList"
+                                }
                                 if (label === "Sign Out") {
                                     fetch("http://localhost:3001/endSession");
                                     window.location = "/"
                                 }
-                                // else if (label === "Settings") {
-                                //     window.location = "/DocSettings"
-                                // }
-                                // else if (label === "View Patients") {
-                                //     window.location = "/MedHistView"
-                                // }
+                                else if (label === "Settings") {
+                                    window.location = "/DocSettings"
+                                }
+                                else if (label === "View Patients") {
+                                    window.location = "/MedHistView"
+                                }
                                 setActive(label);
                             }}
                         />
