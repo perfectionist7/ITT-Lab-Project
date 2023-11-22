@@ -77,8 +77,7 @@ app.get('/makeAccount', (req, res) => {
   if(surgeries===undefined){
     surgeries="none"
   }
-  let sql_statement = `INSERT INTO PatientInfo (email, password, name, address, gender) 
-                       VALUES ` + `("${email}", "${password}", "${name}", "${address}", "${gender}")`;
+  let sql_statement = `CALL InsertPatientInfo` + `("${email}", "${password}", "${name}", "${address}", "${gender}")`;
   console.log(sql_statement);
   con.query(sql_statement, function (error, results, fields) {
     if (error) throw error;
@@ -230,10 +229,7 @@ app.post('/resetPasswordPatient', (req, res) => {
   let email = something.email;
   let oldPassword = "" + something.oldPassword;
   let newPassword = "" + something.newPassword;
-  let statement = `UPDATE PatientInfo 
-                   SET password = "${newPassword}" 
-                   WHERE email = "${email}" 
-                   AND password = "${oldPassword}";`;
+  let statement = `CALL UpdatePatientPassword` + `("${email}", "${oldPassword}", "${newPassword}")`;
   console.log(statement);
   con.query(statement, function (error, results, fields) {
     if (error) throw error;
@@ -251,10 +247,7 @@ app.post('/resetPasswordDoctor', (req, res) => {
   let email = something.email;
   let oldPassword = "" + something.oldPassword;
   let newPassword = "" + something.newPassword;
-  let statement = `UPDATE DoctorInfo
-                   SET password = "${newPassword}" 
-                   WHERE email = "${email}" 
-                   AND password = "${oldPassword}";`;
+  let statement = `CALL UpdateDoctorPassword` + `("${email}", "${oldPassword}", "${newPassword}")`;
   console.log(statement);
   con.query(statement, function (error, results, fields) {
     if (error) throw error;
@@ -394,31 +387,48 @@ app.get('/OneHistory', (req, res) => {
   })
 });
 
+// app.get('/MedHistView', (req, res) => {
+//   let params = req.query;
+//   let patientName = "'%" + params.name + "%'";
+//   let secondParamTest = "" + params.variable;
+//   let statement = `SELECT name AS 'Name',
+//                     PatientRecords.id AS 'ID',
+//                     PatientInfo.email FROM PatientInfo,PatientRecords
+//                     WHERE PatientInfo.email = PatientRecords.email
+//                     AND PatientInfo.email IN (SELECT p.email
+//                       FROM PatientAppointments p
+//                       JOIN Diagnosis d ON p.id = d.id
+//                       WHERE d.email = "${email_in_use}")`;  
+//   if (patientName != "''")
+//     statement += " AND PatientInfo.name LIKE " + patientName
+//   console.log(statement)
+//   con.query(statement, function (error, results, fields) {
+//     if (error) throw error;
+//     else {
+//       return res.json({
+//         data: results
+//       })
+//     };
+//   });
+// });
+
 //To show all patients whose medical history can be accessed
 app.get('/MedHistView', (req, res) => {
   let params = req.query;
-  let patientName = "'%" + params.name + "%'";
-  let secondParamTest = "" + params.variable;
-  let statement = `SELECT name AS 'Name',
-                    PatientRecords.id AS 'ID',
-                    PatientInfo.email FROM PatientInfo,PatientRecords
-                    WHERE PatientInfo.email = PatientRecords.email
-                    AND PatientInfo.email IN (SELECT p.email
-                      FROM PatientAppointments p
-                      JOIN Diagnosis d ON p.id = d.id
-                      WHERE d.email = "${email_in_use}")`;
-  if (patientName != "''")
-    statement += " AND PatientInfo.name LIKE " + patientName
-  console.log(statement)
+  let patientName = params.name || '';
+  let statement = `CALL GetMedHistView("${email_in_use}", "${patientName}")`;
+  console.log(statement);
+
   con.query(statement, function (error, results, fields) {
     if (error) throw error;
     else {
       return res.json({
-        data: results
+        data: results[0]
       })
     };
   });
 });
+
 
 //Returns Appointment Info To patient logged In
 app.get('/patientViewAppt', (req, res) => {
@@ -533,22 +543,41 @@ app.get('/genApptUID', (req, res) => {
 });
 
 //To fill diagnoses
+// app.get('/diagnose', (req, res) => {
+//   let params = req.query;
+//   let id = params.id;
+//   let diagnosis = params.diagnosis;
+//   let prescription = params.prescription;
+//   let statement = `UPDATE Diagnosis SET diagnosis="${diagnosis}", prescription="${prescription}" WHERE id=${id};`;
+//   console.log(statement)
+//   con.query(statement, function (error, results, fields) {
+//     if (error) throw error;
+//     else {
+//       let statement = `UPDATE AppointmentSchedule SET status="Done" WHERE id=${id};`;
+//       console.log(statement)
+//       con.query(statement, function (error, results, fields){
+//         if (error) throw error;
+//       })
+//     };
+//   });
+// });
+
 app.get('/diagnose', (req, res) => {
   let params = req.query;
   let id = params.id;
   let diagnosis = params.diagnosis;
   let prescription = params.prescription;
-  let statement = `UPDATE Diagnosis SET diagnosis="${diagnosis}", prescription="${prescription}" WHERE id=${id};`;
-  console.log(statement)
-  con.query(statement, function (error, results, fields) {
-    if (error) throw error;
-    else {
-      let statement = `UPDATE AppointmentSchedule SET status="Done" WHERE id=${id};`;
-      console.log(statement)
-      con.query(statement, function (error, results, fields){
-        if (error) throw error;
-      })
-    };
+
+  let sql = `CALL DiagnoseAppointment(${id}, '${diagnosis}', '${prescription}')`;
+  console.log(sql);
+  con.query(sql, function (error, results, fields) {
+    if (error) {
+      throw error;
+    } else {
+      return res.json({
+        message: 'Diagnosis updated successfully!'
+      });
+    }
   });
 });
 
@@ -606,7 +635,7 @@ app.get('/allDiagnoses', (req, res) => {
   let params = req.query;
   let email = params.patientEmail;
   let statement =`SELECT date,email,concerns,symptoms,diagnosis,prescription FROM 
-  AppointmentSchedule A INNER JOIN (SELECT * fromPatientAppointments NATURAL JOIN Diagnosis 
+  AppointmentSchedule A INNER JOIN (SELECT * from PatientAppointments NATURAL JOIN Diagnosis 
   WHERE email=${email}) AS B ON A.id = B.id;`
   console.log(statement);
   con.query(statement, function (error, results, fields) {
@@ -638,7 +667,7 @@ app.get('/deleteAppt', (req, res) => {
       }
       else{
         if(who=="pat"){
-          statement = `DELETE FROM PatientAppointments p WHERE p.id = ${uid}`;
+          statement = `DELETE FROM PatientAppointments WHERE id = ${uid}`;
           console.log(statement);
           con.query(statement, function (error, results, fields) {
             if (error) throw error;

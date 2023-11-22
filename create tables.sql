@@ -87,4 +87,14 @@ CREATE TABLE DoctorAccessRecords(
   PRIMARY KEY (id, email)
 );
 
+CREATE TABLE PatientLoginDetails (
+    email VARCHAR(50) PRIMARY KEY,
+    account_creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE DoctorLoginDetails (
+    email VARCHAR(50) PRIMARY KEY,
+    account_creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 

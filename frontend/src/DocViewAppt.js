@@ -11,14 +11,26 @@ import './App.css';
 const theme = {
     global: {
       colors: {
-        brand: '#000000',
-        focus: '#000000'
+        brand: '#36454f',
+        focus: '#ffffff'
       },
       font: {
         family: 'Lato',
       },
     },
   };
+
+  const AppBar = (props) => (
+    <Box
+      tag='header'
+      direction='row'
+      align='center'
+      justify='between'
+      background='#36454f'
+      pad={{ left: 'medium', right: 'small', vertical: 'small' }}
+      style={{ zIndex: '1' }}
+      {...props} />
+  );
 
 export class DocViewAppt extends Component {
     state = { apptlist: [] }
@@ -46,36 +58,41 @@ export class DocViewAppt extends Component {
                 align='center'
                 flex={false}
             >
-                <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>HMS</Heading></a>
+        <AppBar>
+        <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority</i></Heading></a>
+        </AppBar>
             </Box>
         );
 
         const Body = () => (
+            
             <div className="container">
+                <div style={{ margin: '20px'}}></div>
+                
                 <div className="panel panel-default p50 uth-panel">
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Date</th>
-                                <th>Start Time</th>
-                                <th>Concerns</th>
-                                <th>Symptoms</th>
-                                <th>Status</th>
+                                <th style={{ paddingRight: '20px', paddingLeft: '30px'}}>ID</th>
+                                <th style={{ paddingRight: '20px' }}>Name</th>
+                                <th style={{ paddingRight: '20px' }}>Date</th>
+                                <th style={{ paddingRight: '20px' }}>Start Time</th>
+                                <th style={{ paddingRight: '20px' }}>Concerns</th>
+                                <th style={{ paddingRight: '20px' }}>Symptoms</th>
+                                <th style={{ paddingRight: '20px' }}>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             {apptlist.map(appt =>
                                 <tr key={appt.name}>
-                                    <td>{appt.id}</td>
-                                    <td>{appt.name}</td>
-                                    <td>{new Date(appt.date).toLocaleDateString().substring(0,10)} </td>
-                                    <td>{appt.starttime}</td>
-                                    <td>{appt.concerns}</td>
-                                    <td>{appt.symptoms}</td>
-                                    <td>{appt.status}</td>
-                                    <td>
+                                    <td style={{ paddingRight: '20px', paddingLeft: '30px'}}>{appt.id}</td>
+                                    <td style={{ paddingRight: '20px' }}>{appt.name}</td>
+                                    <td style={{ paddingRight: '20px' }}>{new Date(appt.date).toLocaleDateString().substring(0,10)} </td>
+                                    <td style={{ paddingRight: '20px' }}>{appt.starttime}</td>
+                                    <td style={{ paddingRight: '20px' }}>{appt.concerns}</td>
+                                    <td style={{ paddingRight: '20px' }}>{appt.symptoms}</td>
+                                    <td style={{ paddingRight: '20px' }}>{appt.status}</td>
+                                    <td style={{ marginLeft: '30px' }}>
                                         <Button label="Diagnose"
                                         href={`/Diagnose/${appt.id}`}
                                         ></Button>     

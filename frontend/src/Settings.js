@@ -14,8 +14,8 @@ import './App.css';
 const theme = {
     global: {
         colors: {
-            brand: '#000000',
-            focus: '#000000'
+            brand: '#36454f',
+            focus: "#ffffff"
         },
         font: {
             family: 'Lato',
@@ -42,7 +42,7 @@ export class Settings extends Component {
             <Grommet theme={theme} full>
                 <Box >
                     <AppBar>
-                    <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>HMS</Heading></a>
+                    <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority</i></Heading></a>
                     </AppBar>
                     <Box pad="small">
                     <Form

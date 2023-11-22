@@ -15,7 +15,7 @@ const theme = {
     global: {
       colors: {
         brand: '#36454f',
-        focus: '#000000'
+        focus: "#ffffff"
       },
       font: {
         family: 'Lato',

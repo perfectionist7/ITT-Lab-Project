@@ -12,8 +12,8 @@ import './App.css';
 const theme = {
     global: {
         colors: {
-            brand: '#000000',
-            focus: '#000000'
+            brand: '#36454f',
+            focus: "#ffffff"
         },
         font: {
             family: 'Lato',
@@ -62,12 +62,12 @@ export class PatientsViewAppointments extends Component {
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                            <th>Date of Appointment</th>
-                                <th>Start Time</th>
-                                <th>End Time</th>
-                                <th>Concerns</th>
-                                <th>Symptoms</th>
-                                <th>Status</th>
+                            <th style={{ padding: '20px' }}>Date of Appointment</th>
+                            <th style={{ padding: '20px' }}>Start Time</th>
+                            <th style={{ padding: '20px' }}>End Time</th>
+                            <th style={{ padding: '20px' }}>Concerns</th>
+                            <th style={{ padding: '20px' }}>Symptoms</th>
+                            <th style={{ padding: '30px' }}>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -78,10 +78,10 @@ export class PatientsViewAppointments extends Component {
                                     </td>
                                     <td align="center" >{patient.theStart.substring(0, 5)}</td>
                                     <td align="center" >{patient.theEnd.substring(0, 5)}</td>
-                                    <td align="center">{patient.theConcerns} </td>
+                                    <td align="center" style={{ paddingRight: '20px' }}>{patient.theConcerns} </td>
                                     <td align="center">{patient.theSymptoms}</td>
-                                    <td align="center">{patient.status}</td>
-                                    <td>
+                                    <td align="center" style={{ paddingRight: '15px' }}>{patient.status}</td>
+                                    <td style={{ paddingRight: '20px' }}>
                                         <Button label="See Diagnosis"
                                         href={`/showDiagnoses/${patient.ID}`}
                                         ></Button>     
@@ -114,7 +114,7 @@ export class PatientsViewAppointments extends Component {
             <Grommet theme={theme} full>
                 <Box >
                     <AppBar>
-                    <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>HMS</Heading></a>
+                    <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority</i></Heading></a>
                     </AppBar>
                     <Body />
                 </Box>
