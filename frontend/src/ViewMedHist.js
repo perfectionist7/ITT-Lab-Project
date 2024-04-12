@@ -79,8 +79,8 @@ export class ViewMedHist extends Component {
                     <table className="table table-hover">
                         <thead>
                             <tr>
-                                <th style={{width:"50vw"}}>Name</th>
-                                <th style={{width:"50vw"}}>Profile</th>
+                                <th style={{width:"50vw", textAlign:"center"}}>Name</th>
+                                <th style={{width:"50vw",textAlign:"center"}}>Profile</th>
                             </tr>
                         </thead> 
                         <tbody>
@@ -106,10 +106,10 @@ export class ViewMedHist extends Component {
                         onSubmit={({ value }) => {
                             this.getNames(value.email);
                         }}>
-                        <h4 style={{textAlign:"center", marginBottom:"0"}}>Search By Name</h4>
-                        <FormField name="email" align="center" />
+                        <h4 style={{textAlign:"center", marginBottom:"0px"}}>Search By Name</h4>
+                        <FormField name="email" align="center"style={{ marginBottom:"30px"}} />
                         <div align="center">
-                            <Button type="submit" primary label="Submit" />
+                            <Button type="submit" primary label="Submit" style={{ marginBottom:"20px"}}/>
                         </div>
                     </Form>
                     <Body />

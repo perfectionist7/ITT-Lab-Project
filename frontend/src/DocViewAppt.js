@@ -67,7 +67,7 @@ export class DocViewAppt extends Component {
         const Body = () => (
             
             <div className="container">
-                <div style={{ margin: '20px'}}></div>
+                <div></div>
                 
                 <div className="panel panel-default p50 uth-panel">
                     <table className="table table-hover">
@@ -80,6 +80,8 @@ export class DocViewAppt extends Component {
                                 <th style={{ paddingRight: '20px' }}>Concerns</th>
                                 <th style={{ paddingRight: '20px' }}>Symptoms</th>
                                 <th style={{ paddingRight: '20px' }}>Status</th>
+                                <th style={{ paddingRight: '20px' }}>Diagnose</th>
+                                <th style={{ paddingRight: '20px' }}>Remove</th>
                             </tr>
                         </thead>
                         <tbody>

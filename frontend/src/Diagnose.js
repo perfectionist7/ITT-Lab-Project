@@ -1,5 +1,3 @@
-// Diagnose.js
-
 import React, { Component } from 'react';
 import {
   Box,
@@ -9,8 +7,8 @@ import {
   TextArea,
   Grommet
 } from 'grommet';
-import './App.css';
 import SpeechToTextButton from './SpeechToText'; // Import the SpeechToTextButton component
+
 const theme = {
   global: {
     colors: {
@@ -23,10 +21,12 @@ const theme = {
     },
   },
 };
+
 var diagnosis = "";
 var prescription = "";
 var id;
-const AppBar = (props) => (
+
+const AppBar = () => (
   <Box
     tag='header'
     direction='row'
@@ -35,7 +35,9 @@ const AppBar = (props) => (
     background='brand'
     pad={{ left: 'medium', right: 'small', vertical: 'small' }}
     style={{ zIndex: '1' }}
-    {...props} />
+  >
+    <Heading level='3' margin='none'>HealthHub - <i> Hospital Management Portal</i></Heading>
+  </Box>
 );
 
 export class Diagnose extends Component {
@@ -69,39 +71,39 @@ export class Diagnose extends Component {
     const { diagnosisText, prescriptionText, isDiagnosisEmpty, isPrescriptionEmpty } = this.state;
     return (
       <Grommet theme={theme} full>
-        <AppBar>
-          <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/"><Heading level='3' margin='none'>HealthHub - <i> Hospital Management Portal</i></Heading></a>
-        </AppBar>
-        <Box align="center" gap="small">
+        <AppBar />
+        <Box align="center" gap="medium" pad="medium">
           <Form onSubmit={this.handleSubmit}> {/* Attach handleSubmit function to the form's onSubmit event */}
-            <h4>Diagnosis</h4>
-            <TextArea
-              placeholder="Enter Diagnosis"
-              label="Enter Diagnosis"
-              value={diagnosisText}
-              onChange={event => {this.setState({ diagnosisText: event.target.value, isDiagnosisEmpty: !event.target.value })}}
-              style={{width:"50vw", height:"12vw"}}
-              fill
-              required={isDiagnosisEmpty}
-            />
-            <SpeechToTextButton  setText={this.setDiagnosis} />
-            <h4>Prescription</h4>
-            <TextArea
-              placeholder="Enter Prescription"
-              label="Enter Prescription"
-              value={prescriptionText}
-              onChange={event => {this.setState({ prescriptionText: event.target.value, isPrescriptionEmpty: !event.target.value })}}
-              style={{width:"50vw", height:"12vw"}}
-              fill
-              required={isPrescriptionEmpty}
-            />
-            <SpeechToTextButton setText={this.setPrescription} />
-            <br />
-            <Box align="center">
+            <Box width="large">
+              <Heading level={3}>Diagnosis</Heading>
+              <TextArea
+                placeholder="Enter Diagnosis"
+                value={diagnosisText}
+                onChange={event => {this.setState({ diagnosisText: event.target.value, isDiagnosisEmpty: !event.target.value })}}
+                fill
+                required={isDiagnosisEmpty}
+                style={{ height: '180px', marginBottom:'20px' }} // Increasreased height
+              />
+              <SpeechToTextButton setText={this.setDiagnosis} />
+            </Box>
+            <Box width="large">
+              <Heading level={3}>Prescription</Heading>
+              <TextArea
+                placeholder="Enter Prescription"
+                value={prescriptionText}
+                onChange={event => {this.setState({ prescriptionText: event.target.value, isPrescriptionEmpty: !event.target.value })}}
+                fill
+                required={isPrescriptionEmpty}
+                style={{ height: '180px', marginBottom:'20px' }} // Increased height
+              />
+              <SpeechToTextButton setText={this.setPrescription} />
+            </Box>
+            <Box align="center" style={{ marginTop: '20px' }}> {/* Centered submit button */}
               <Button
                 label="Submit Diagnosis"
                 type="submit"
                 primary
+                margin={{ top: 'medium' }} // Added margin for space
               />
             </Box>
           </Form>
