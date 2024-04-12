@@ -46,7 +46,7 @@ export class MakeDoc extends Component {
         return (
             <Grommet theme={theme} full>
                 <AppBar>
-                <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority </i></Heading></a>
+                <a style={{ color: 'inherit', textDecoration: 'inherit'}} href="/"><Heading level='3' margin='none'>HealthHub - <i> Hospital Management Portal </i></Heading></a>
                 </AppBar>
                 <Box justify="top" style={{ background: 'white', color: '#6e7f80' }}>
                 <Box width="high">

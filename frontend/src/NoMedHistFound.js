@@ -53,7 +53,7 @@ export class NoMedHistFound extends Component {
             <div className="container">
                 <div className="panel panel-default p50 uth-panel" >
                 <AppBar>
-        <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority</i></Heading></a>
+        <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/"><Heading level='3' margin='none'>HealthHub - <i> Hospital Management Portal</i></Heading></a>
         </AppBar>
                 </div>
             </div>

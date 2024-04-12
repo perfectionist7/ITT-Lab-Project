@@ -1,122 +1,121 @@
-import React, { Component} from 'react';
-
+import React, { Component } from 'react';
+import TextToSpeech from './TexttoSpeech'; // Import the TextToSpeech component
+import styled from 'styled-components'; // Import styled-components
 import {
-    Box,
-    Heading,
-    Grommet,
-    Table,
-    TableBody,
-    TableCell,
-    TableRow
+  Box,
+  Heading,
+  Grommet,
+  Table,
+  TableBody,
+  TableCell,
+  TableRow
 } from 'grommet';
 
-import './App.css';
-
 const theme = {
-    global: {
-        colors: {
-            brand: '#36454f',
-            focus: "#ffffff"
-        },
-        font: {
-            family: 'Lato',
-        },
+  global: {
+    colors: {
+      brand: '#36454f',
+      focus: "#ffffff"
     },
+    font: {
+      family: 'Lato',
+    },
+  },
 };
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px; /* Add margin from the left side */
+  margin-bottom: 30px; /* Adjust the margin bottom to reduce the distance between containers */
+  margin-left: 50px; /* Add margin from the left side */
+  margin-right: 1100px; /* Add margin from the left side */
+`;
+class ShowDiagnoses extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { diagnoses: [] };
+    this.id = props.match.params.id;
+  }
 
-var id;
-const AppBar = (props) => (
-    <Box
-      tag='header'
-      direction='row'
-      align='center'
-      justify='between'
-      background='#36454f'
-      pad={{ left: 'medium', right: 'small', vertical: 'small' }}
-      style={{ zIndex: '1' }}
-      {...props} />
-  );
-export class ShowDiagnoses extends Component {
-    constructor(props) {
-        super(props);
-        id = props.match.params.id;
-    }
-    state = { diagnoses: [] }
-    componentDidMount() {
-        fetch('http://localhost:3001/showDiagnoses?id='+ id)
-        .then(res => res.json())
-        .then(res => this.setState({ diagnoses: res.data }));
-    }
-    render() {
-        const { diagnoses } = this.state;
-        const Header = () => (
-            <Box
-                tag='header'
-                background='brand'
-                pad='small'
-                elevation='small'
-                justify='between'
-                direction='row'
-                align='center'
-                flex={false}
-            >
-        <AppBar>
-        <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/"><Heading level='3' margin='none'>MediCarePro - <i> Your Health, Our Priority</i></Heading></a>
-        </AppBar>
+  componentDidMount() {
+    fetch('http://localhost:3001/showDiagnoses?id=' + this.id)
+      .then(res => res.json())
+      .then(res => this.setState({ diagnoses: res.data }));
+  }
+
+  render() {
+    const { diagnoses } = this.state;
+  
+    return (
+      <Grommet full={true} theme={theme}>
+        <Box fill={true}>
+          <Box
+            tag='header'
+            direction='row'
+            align='center'
+            justify='between'
+            background='#36454f'
+            pad={{ left: 'medium', right: 'small', vertical: 'small' }}
+            style={{ zIndex: '1' }}>
+            <Box>
+              <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/">
+                <Heading level='3' margin='none'>HealthHub - <i> Hospital Management Portal</i></Heading>
+              </a>
             </Box>
-        );
-        const Body = () => (
-            <div className="container">
-                <div className="panel panel-default p50 uth-panel">
-                    {diagnoses.map(diagnosis =>
-                        <Table>
-                            <TableBody>
-                                <TableRow>
-                                    <TableCell scope="row">
-                                        <strong>Appointment Id</strong>
-                                    </TableCell>
-                                    <TableCell>{diagnosis.id}</TableCell>
-                                    <TableCell></TableCell>
-                                </TableRow>
-                                <br />
-                                <TableRow>
-                                    <TableCell scope="row">
-                                        <strong>Doctor</strong>
-                                    </TableCell>
-                                    <TableCell>{diagnosis.email}</TableCell>
-                                    <TableCell></TableCell>
-                                </TableRow>
-                                <br />
-                                <TableRow>
-                                    <TableCell scope="row">
-                                        <strong>Diagnosis</strong>
-                                    </TableCell>
-                                    <TableCell>{diagnosis.diagnosis}</TableCell>
-                                    <TableCell></TableCell>
-                                </TableRow>
-                                <br />
-                                <TableRow>
-                                    <TableCell scope="row">
-                                        <strong>Prescription</strong>
-                                    </TableCell>
-                                    <TableCell>{diagnosis.prescription}</TableCell>
-                                    <TableCell></TableCell>
-                                </TableRow>
-                            </TableBody>
-                        </Table>
-                    )}
+          </Box>
+          <div className="container">
+            <div className="panel panel-default p50 uth-panel">
+              {diagnoses.map(diagnosis => (
+                <div key={diagnosis.id}>
+                  <Table>
+                    <TableBody>
+                      <TableRow>
+                        <TableCell scope="row">
+                          <strong>Appointment Id</strong>
+                        </TableCell>
+                        <TableCell>{diagnosis.id}</TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                      <br />
+                      <TableRow>
+                        <TableCell scope="row">
+                          <strong>Doctor</strong>
+                        </TableCell>
+                        <TableCell>{diagnosis.email}</TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                      <br />
+                      <TableRow>
+                        <TableCell scope="row">
+                          <strong>Diagnosis</strong>
+                        </TableCell>
+                        <TableCell>{diagnosis.diagnosis}</TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                      <br />
+                      <TableRow>
+                        <TableCell scope="row">
+                          <strong>Prescription</strong>
+                        </TableCell>
+                        <TableCell>{diagnosis.prescription}</TableCell>
+                        <TableCell></TableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                  <ButtonContainer>
+                    <TextToSpeech textToSpeak={diagnosis.diagnosis} buttonText="Read Diagnosis" />
+                    <TextToSpeech textToSpeak={diagnosis.prescription} buttonText="Read Prescription" />
+                  </ButtonContainer>
+
                 </div>
-                <hr />
+              ))}
             </div>
-        );
-        return (
-            <Grommet full={true} theme={theme}>
-                <Box fill={true}>
-                    <Header />
-                    <Body />
-                </Box>
-            </Grommet>
-        );
-    }
+            <hr />
+          </div>
+        </Box>
+      </Grommet>
+    );
+  }
 }
+
 export default ShowDiagnoses;
