@@ -37,14 +37,28 @@
   /* Change link text color */
 }
 
-table {
+/* App.css */
+
+.table {
+  width: 100%;
   border-collapse: collapse;
-  /* Change to 'separate' if needed */
-  border-spacing: 10px 0;
-  /* Change spacing as needed */
 }
 
-td {
-  padding: 15px 0;
-  /* Adjust cell padding */
+.table th, .table td {
+  border: 1px solid #ddd;
+  padding: 30px;
+}
+
+.table th {
+  background-color: #36454f;
+  color: #ffffff;
+  text-align: left;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.table tr:hover {
+  background-color: #ddd;
 }
