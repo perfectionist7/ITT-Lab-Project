@@ -387,47 +387,47 @@ app.get('/OneHistory', (req, res) => {
   })
 });
 
-// app.get('/MedHistView', (req, res) => {
-//   let params = req.query;
-//   let patientName = "'%" + params.name + "%'";
-//   let secondParamTest = "" + params.variable;
-//   let statement = `SELECT name AS 'Name',
-//                     PatientRecords.id AS 'ID',
-//                     PatientInfo.email FROM PatientInfo,PatientRecords
-//                     WHERE PatientInfo.email = PatientRecords.email
-//                     AND PatientInfo.email IN (SELECT p.email
-//                       FROM PatientAppointments p
-//                       JOIN Diagnosis d ON p.id = d.id
-//                       WHERE d.email = "${email_in_use}")`;  
-//   if (patientName != "''")
-//     statement += " AND PatientInfo.name LIKE " + patientName
-//   console.log(statement)
-//   con.query(statement, function (error, results, fields) {
-//     if (error) throw error;
-//     else {
-//       return res.json({
-//         data: results
-//       })
-//     };
-//   });
-// });
-
-//To show all patients whose medical history can be accessed
 app.get('/MedHistView', (req, res) => {
   let params = req.query;
-  let patientName = params.name || '';
-  let statement = `CALL GetMedHistView("${email_in_use}", "${patientName}")`;
-  console.log(statement);
-
+  let patientName = "'%" + params.name + "%'";
+  let secondParamTest = "" + params.variable;
+  let statement = `SELECT name AS 'Name',
+                    PatientRecords.id AS 'ID',
+                    PatientInfo.email FROM PatientInfo,PatientRecords
+                    WHERE PatientInfo.email = PatientRecords.email
+                    AND PatientInfo.email IN (SELECT p.email
+                      FROM PatientAppointments p
+                      JOIN Diagnosis d ON p.id = d.id
+                      WHERE d.email = "${email_in_use}")`;  
+  if (patientName != "''")
+    statement += " AND PatientInfo.name LIKE " + patientName
+  console.log(statement)
   con.query(statement, function (error, results, fields) {
     if (error) throw error;
     else {
       return res.json({
-        data: results[0]
+        data: results
       })
     };
   });
 });
+
+//To show all patients whose medical history can be accessed
+// app.get('/MedHistView', (req, res) => {
+//   let params = req.query;
+//   let patientName = params.name || '';
+//   let statement = `CALL GetMedHistView("${email_in_use}", "${patientName}")`;
+//   console.log(statement);
+
+//   con.query(statement, function (error, results, fields) {
+//     if (error) throw error;
+//     else {
+//       return res.json({
+//         data: results[0]
+//       })
+//     };
+//   });
+// });
 
 
 //Returns Appointment Info To patient logged In

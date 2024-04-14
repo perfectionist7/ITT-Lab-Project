@@ -47,7 +47,7 @@ class ShowDiagnoses extends Component {
     const { diagnoses } = this.state;
   
     return (
-      <Grommet full={true} theme={theme}>
+      <Grommet full={true} theme={theme}  style={{ backgroundImage: 'url("https://t3.ftcdn.net/jpg/02/16/47/22/360_F_216472247_cT66WDoS0fp1s3wC7eaykMJNDGVbOBPq.jpg")', backgroundSize: 'cover' }}>
         <Box fill={true}>
           <Box
             tag='header'
@@ -63,10 +63,13 @@ class ShowDiagnoses extends Component {
               </a>
             </Box>
           </Box>
-          <div className="container">
+          
+          <div className="container" style={{ marginTop: "20px"}}>
             <div className="panel panel-default p50 uth-panel">
+              
               {diagnoses.map(diagnosis => (
                 <div key={diagnosis.id}>
+                     <Box width="high" pad="medium" background={{ color: 'rgba(255, 255, 255, 0.8)' }} round="small" elevation="medium">
                   <Table>
                     <TableBody>
                       <TableRow>
@@ -102,10 +105,12 @@ class ShowDiagnoses extends Component {
                       </TableRow>
                     </TableBody>
                   </Table>
+                  </Box>
                   <ButtonContainer>
                     <TextToSpeech textToSpeak={diagnosis.diagnosis} buttonText="Read Diagnosis" />
                     <TextToSpeech textToSpeak={diagnosis.prescription} buttonText="Read Prescription" />
                   </ButtonContainer>
+                  
 
                 </div>
               ))}

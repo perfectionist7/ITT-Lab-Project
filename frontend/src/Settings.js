@@ -39,7 +39,7 @@ export class Settings extends Component {
     }
     render() {
         return (
-            <Grommet theme={theme} full>
+            <Grommet theme={theme} full style={{ backgroundImage: 'url("https://t3.ftcdn.net/jpg/02/16/47/22/360_F_216472247_cT66WDoS0fp1s3wC7eaykMJNDGVbOBPq.jpg")', backgroundSize: 'cover' }}>
                 <Box >
                     <AppBar>
                     <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/"><Heading level='3' margin='none'>HealthHub - <i> Hospital Management Portal</i></Heading></a>

@@ -108,7 +108,7 @@ export class DocHome extends Component {
 
         return (
             <Grommet full={true}
-                theme={theme}>
+                theme={theme}  style={{ backgroundImage: 'url("https://t3.ftcdn.net/jpg/02/16/47/22/360_F_216472247_cT66WDoS0fp1s3wC7eaykMJNDGVbOBPq.jpg")', backgroundSize: 'cover' }}>
                 <Box align="left">
                     <Header/>
                     <Grid

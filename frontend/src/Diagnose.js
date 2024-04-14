@@ -70,12 +70,13 @@ export class Diagnose extends Component {
   render() {
     const { diagnosisText, prescriptionText, isDiagnosisEmpty, isPrescriptionEmpty } = this.state;
     return (
-      <Grommet theme={theme} full>
+      <Grommet theme={theme} full  style={{ backgroundImage: 'url("https://t3.ftcdn.net/jpg/02/16/47/22/360_F_216472247_cT66WDoS0fp1s3wC7eaykMJNDGVbOBPq.jpg")', backgroundSize: 'cover' }}>
         <AppBar />
         <Box align="center" gap="medium" pad="medium">
           <Form onSubmit={this.handleSubmit}> {/* Attach handleSubmit function to the form's onSubmit event */}
             <Box width="large">
               <Heading level={3}>Diagnosis</Heading>
+              <Box width="high" pad="medium" background={{ color: 'rgba(255, 255, 255, 0.8)' }} round="small" elevation="medium"> 
               <TextArea
                 placeholder="Enter Diagnosis"
                 value={diagnosisText}
@@ -84,10 +85,13 @@ export class Diagnose extends Component {
                 required={isDiagnosisEmpty}
                 style={{ height: '180px', marginBottom:'20px' }} // Increasreased height
               />
+                  
               <SpeechToTextButton setText={this.setDiagnosis} />
+              </Box>
             </Box>
             <Box width="large">
               <Heading level={3}>Prescription</Heading>
+              <Box width="high" pad="medium" background={{ color: 'rgba(255, 255, 255, 0.8)' }} round="small" elevation="medium"> 
               <TextArea
                 placeholder="Enter Prescription"
                 value={prescriptionText}
@@ -96,7 +100,9 @@ export class Diagnose extends Component {
                 required={isPrescriptionEmpty}
                 style={{ height: '180px', marginBottom:'20px' }} // Increased height
               />
+            
               <SpeechToTextButton setText={this.setPrescription} />
+              </Box>
             </Box>
             <Box align="center" style={{ marginTop: '20px' }}> {/* Centered submit button */}
               <Button

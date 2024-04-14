@@ -43,14 +43,19 @@ export class CreateAccount extends Component {
 
   render() {
     return (
-      <Grommet theme={theme} full>
+      <Grommet theme={theme} full  style={{ backgroundImage: 'url("https://t3.ftcdn.net/jpg/02/16/47/22/360_F_216472247_cT66WDoS0fp1s3wC7eaykMJNDGVbOBPq.jpg")', backgroundSize: 'cover' }}>
         <AppBar>
           <a style={{ color: "#ffffff", textDecoration: 'inherit' }} href="/"><Heading level='3' margin='none'>HealthHub - <i> Hospital Management Portal </i></Heading></a>
         </AppBar>
-        <Box justify="top" style={{ background: 'white', color: '#6e7f80' }}>
-          <Box width="high">
+        <Box width="high" >
+        <Box
+          fill
+          justify="center"
+          pad="medium" background={{ color: 'rgba(255, 255, 255, 0.8)' }} round="small" elevation="medium"
+         >
+         
             <div style={{ margin: '20px' }}></div>
-            <Text color="#36454f" style={{ fontSize: '36px', margin: '20px 0', marginLeft: '20px' }}><b> Register Yourself, Today! </b></Text>
+            <Text color="#36454f" style={{ fontSize: '36px', margin: '20px 0', marginLeft: '30px', }}><b> Register Yourself, Today! </b></Text>
             <div style={{ margin: '20px' }}></div>
             <Form
               onReset={event => console.log(event)}
@@ -76,7 +81,9 @@ export class CreateAccount extends Component {
                   });
               }}>
               <div style={{ marginLeft: '20px' }}>
-  <div style={{ display: 'flex', flexDirection: 'row' }}>
+                
+  <div style={{ display: 'flex', flexDirection: 'row', }}>
+
     <FormField  
       label="First Name"
       name="firstName"
@@ -92,7 +99,7 @@ export class CreateAccount extends Component {
       placeholder="Enter your last name"
       validate={{ regexp: /^[a-z]/i }}
     />
-                  <Text color="#36454f" style={{ fontSize: '30px', margin: '20px 0', marginLeft: '280px' }}><b> Previous Medical History </b></Text>
+                  <Text color="#36454f" style={{ fontSize: '30px', margin: '20px 0', marginLeft: '290px' }}><b> Previous Medical History </b></Text>
   </div>
   <div style={{ margin: '20px' }}></div>
 </div>
@@ -165,17 +172,19 @@ export class CreateAccount extends Component {
               </div>
                 </div>
                 </div>
-                <div style={{ marginLeft: '20px' }}>
+          
+                <div style={{ marginLeft: '20px', marginBottom: '20px' }}>
               <div style={{ margin: '40px' }}></div>
                 <div style={{ margin: '20px' }}></div>
                 <div style={{ marginRight: '1000px' }}>
 
                 </div>
 
-                <div style={{ margin: '70px' }}></div>
+                <div style={{ margin: '70px'  }}></div>
               </div>
-              <Box direction="row" >
-              <div style={{ marginLeft: '500px' }}></div>
+                           <div style={{ marginBottom: '50px' }}></div>
+              <Box direction="row" margin={{ bottom: 'medium' }}>
+              <div style={{ marginLeft: '420px' }}></div>
                 <Button
                   style={{ textAlign: 'center', width: '200px',borderRadius: '10px' }}
                   label="Cancel"
@@ -190,10 +199,14 @@ export class CreateAccount extends Component {
                   primary />
               
               </Box>
-              <div style={{ marginBottom: '100px' }}></div>
+              
+              <div style={{ marginBottom: '50px' }}></div>
             </Form>
+          
           </Box>
+      
         </Box>
+        
       </Grommet>
     );
   }

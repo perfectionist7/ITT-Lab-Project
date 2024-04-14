@@ -71,7 +71,7 @@ export class ViewOneHistory extends Component {
             direction='row'
             align='center'
             flex={false}
-            style={{borderBottom:"1px solid grey"}}
+            style={{borderBottom:"1px solid grey" }}
           >
         <AppBar>
           <a style={{ color: "#ffffff", textDecoration: 'inherit' }} href="/"><Heading level='3' margin='none'>HealthHub - <i> Hospital Management Portal </i></Heading></a>
@@ -79,7 +79,9 @@ export class ViewOneHistory extends Component {
             </Box>
         );
         const Body = () => (
-            <div className="container">
+            
+            <div className="container" >
+                   <Box pad="medium" background={{ color: 'rgba(255, 255, 255, 0.8)' }} round="small" elevation="medium">
                 <div className="panel panel-default p50 uth-panel">
                 <div style={{ margin: '30px' }}></div>  
                 <Text style={{ fontSize: '24px', color: '#36454f', marginLeft: '30px' }}> <b>  Medical History:  </b> </Text>
@@ -145,6 +147,7 @@ export class ViewOneHistory extends Component {
                         </Table>
                     )}
                 </div>
+                </Box>
                 <hr />
             </div>
         );
@@ -213,7 +216,7 @@ export class ViewOneHistory extends Component {
         // );
         return (
             <Grommet full={true} theme={theme}>
-                <Box fill={true}>
+                <Box fill={true}    style={{ backgroundImage: 'url("https://t3.ftcdn.net/jpg/02/16/47/22/360_F_216472247_cT66WDoS0fp1s3wC7eaykMJNDGVbOBPq.jpg")', backgroundSize: 'cover' }}>
                     <Header />
                     <Body />
                     {/* <Body2 /> */}

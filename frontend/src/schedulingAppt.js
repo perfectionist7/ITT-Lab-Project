@@ -270,11 +270,11 @@ export class SchedulingAppt extends Component {
   }
   render() {
     return (
-      <Grommet theme={theme} full>
+      <Grommet theme={theme} full style={{ backgroundImage: 'url("https://t3.ftcdn.net/jpg/02/16/47/22/360_F_216472247_cT66WDoS0fp1s3wC7eaykMJNDGVbOBPq.jpg")', backgroundSize: 'cover' }}>
         <AppBar>
         <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/"><Heading level='3' margin='none'>HealthHub - <i> Hospital Management Portal</i></Heading></a>
         </AppBar>
-        <Box align="center" pad="small" gap="small">
+        <Box align="center" pad="small" gap="small" >
           <Form
             onSubmit={({ value }) => {
               //probably fetch uid here, add one
@@ -311,6 +311,7 @@ export class SchedulingAppt extends Component {
                 });
             }}
           >
+                               <Box pad="medium" background={{ color: 'rgba(255, 255, 255, 0.8)' }} round="small" elevation="medium">
             <Box align="center" gap="small">
               <DoctorsDropdown />
             </Box>
@@ -327,7 +328,9 @@ export class SchedulingAppt extends Component {
                 primary
               />
             </Box>
+            </Box>
           </Form>
+      
         </Box>
       </Grommet>
     );

@@ -101,18 +101,22 @@ export class ViewMedHist extends Component {
             <Grommet full={true}
             theme = {theme}>
                 <Header />
-                <Box fill={true} align="center">
+                <Box fill={true} align="center" style={{ backgroundImage: 'url("https://t3.ftcdn.net/jpg/02/16/47/22/360_F_216472247_cT66WDoS0fp1s3wC7eaykMJNDGVbOBPq.jpg")', backgroundSize: 'cover' }}>
+                <Box width="high" pad="medium" background={{ color: 'rgba(255, 255, 255, 0.8)' }} round="small" elevation="medium"> 
                     <Form
                         onSubmit={({ value }) => {
                             this.getNames(value.email);
                         }}>
+                          
                         <h4 style={{textAlign:"center", marginBottom:"0px"}}>Search By Name</h4>
                         <FormField name="email" align="center"style={{ marginBottom:"30px"}} />
                         <div align="center">
                             <Button type="submit" primary label="Submit" style={{ marginBottom:"20px"}}/>
                         </div>
                     </Form>
+                
                     <Body />
+                    </Box>
                 </Box>
             </Grommet>
         );

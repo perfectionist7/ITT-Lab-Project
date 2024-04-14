@@ -53,20 +53,23 @@ class LogIn extends Component {
     const { isDoctor } = this.state; // If doctor, will query from doctor table
 
     return (
-      <Grommet theme={theme} full>
+      <Grommet theme={theme} full  style={{ backgroundImage: 'url("https://t3.ftcdn.net/jpg/02/16/47/22/360_F_216472247_cT66WDoS0fp1s3wC7eaykMJNDGVbOBPq.jpg")', backgroundSize: 'cover' }}>
         <AppBar>
         <a style={{ color: "#ffffff", textDecoration: "#ffffff"}} href="/"><Heading level='3' margin='none'>HealthHub - <i> Hospital Management Portal</i></Heading></a>
         </AppBar>
-
         <Box
           fill
           align="center"
-          justify="top"
-          pad="medium"
-          style={{ background: 'white', color: '#6e7f80' }}>
-          <Box
-            width="medium"
-            pad="medium">
+          justify="center"
+          >
+
+<Box
+    width="medium"
+    pad="medium"
+    background={{ color: 'rgba(255, 255, 255, 0.8)' }}  // Semi-transparent white background
+    round="small"  // Optional: adds rounded corners
+    elevation="medium"  // Optional: adds shadow for better separation/?
+    >
             <Form
 
               onReset={event => console.log(event)}

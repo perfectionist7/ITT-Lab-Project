@@ -142,7 +142,8 @@ export class Home extends Component {
             <Box
               gridArea="main"
               justify="top"
-              align="center">
+              align="center"
+              style={{ backgroundImage: 'url("https://t3.ftcdn.net/jpg/02/16/47/22/360_F_216472247_cT66WDoS0fp1s3wC7eaykMJNDGVbOBPq.jpg")', backgroundSize: 'cover' }}>
               <Box align="center" pad="large">
               <Text color="#36454f" style={{ fontSize: '46px', margin: '20px 0', marginLeft: '120px' }}><b> Patient's Dashboard </b></Text>
               </Box>
